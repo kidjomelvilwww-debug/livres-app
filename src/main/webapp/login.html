@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>🔐 Connexion Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="card shadow" style="width: 100%; max-width: 400px;">
+        <div class="card-body p-4">
+            <h3 class="text-center mb-4">
+                <i class="bi bi-person-lock text-primary"></i>
+                Connexion Admin
+            </h3>
+
+            <form id="loginForm">
+                <div class="mb-3">
+                    <label for="login" class="form-label">Login</label>
+                    <input type="text" id="login" class="form-control" required autofocus>
+                </div>
+
+                <div class="mb-3">
+                    <label for="motDePasse" class="form-label">Mot de passe</label>
+                    <input type="password" id="motDePasse" class="form-control" required>
+                </div>
+
+                <div id="erreur" class="alert alert-danger d-none"></div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    <i class="bi bi-box-arrow-in-right"></i> Se connecter
+                </button>
+            </form>
+
+            <div class="text-center mt-3">
+                <a href="index.html" class="text-decoration-none small">
+                    ← Retour à l'accueil
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const login = document.getElementById('login').value;
+    const motDePasse = document.getElementById('motDePasse').value;
+    const erreurDiv = document.getElementById('erreur');
+    erreurDiv.classList.add('d-none');
+
+    try {
+        const response = await fetch('api/auth/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ login, motDePasse })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            window.location.href = 'admin.html';
+        } else {
+            erreurDiv.textContent = data.error || 'Erreur de connexion';
+            erreurDiv.classList.remove('d-none');
+        }
+    } catch (err) {
+        erreurDiv.textContent = 'Erreur réseau : ' + err.message;
+        erreurDiv.classList.remove('d-none');
+    }
+});
+</script>
+</body>
+</html>

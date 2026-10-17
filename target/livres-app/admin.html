@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>👑 Espace Admin</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-dark bg-dark shadow-sm">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="#">
+            <i class="bi bi-speedometer2"></i> Espace Admin
+        </a>
+        <div class="d-flex gap-2">
+            <span class="navbar-text text-white me-3" id="userName"></span>
+            <button class="btn btn-outline-light btn-sm" onclick="deconnecter()">
+                <i class="bi bi-box-arrow-right"></i> Déconnexion
+            </button>
+        </div>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2><i class="bi bi-book"></i> Gestion des livres</h2>
+        <button class="btn btn-success" onclick="ouvrirFormAjout()">
+            <i class="bi bi-plus-circle"></i> Ajouter un livre
+        </button>
+    </div>
+
+    <div id="message" class="alert d-none"></div>
+
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Titre</th>
+                        <th>Auteur</th>
+                        <th>Domaine</th>
+                        <th>Année</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="livresTable"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Modal formulaire ajout/modif -->
+<div class="modal fade" id="livreModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalTitle">Ajouter un livre</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <form id="livreForm">
+                    <input type="hidden" id="livreId">
+
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <label class="form-label">Titre *</label>
+                            <input type="text" id="titre" class="form-control" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Auteur *</label>
+                            <input type="text" id="auteur" class="form-control" required>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Domaine</label>
+                            <select id="domaine" class="form-select">
+                                <option value="">--</option>
+                                <option>Roman</option>
+                                <option>Science</option>
+                                <option>Histoire</option>
+                                <option>Philosophie</option>
+                                <option>Poésie</option>
+                                <option>Jeunesse</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">Année</label>
+                            <input type="number" id="annee" class="form-control" min="1000" max="2100">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="form-label">ISBN</label>
+                            <input type="text" id="isbn" class="form-control">
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Éditeur</label>
+                            <input type="text" id="editeur" class="form-control">
+                        </div>
+
+                        <!-- IMAGE : URL + Upload -->
+                        <div class="col-md-6">
+                            <label class="form-label">Image de couverture</label>
+                            <div class="input-group">
+                                <input type="text" id="imageUrl" class="form-control" placeholder="URL ou Upload">
+                                <button type="button" class="btn btn-outline-primary" onclick="ouvrirUploadImage()">
+                                    <i class="bi bi-upload"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="fileImage" style="display:none" accept="image/*" onchange="uploadFichier('imageUrl', this)">
+                            <div id="previewImage" class="mt-2"></div>
+                        </div>
+
+                        <div class="col-12">
+                            <label class="form-label">Description</label>
+                            <textarea id="description" class="form-control" rows="3"></textarea>
+                        </div>
+
+                        <!-- FICHIER PDF/EPUB : URL + Upload -->
+                        <div class="col-12">
+                            <label class="form-label">Fichier (PDF, EPUB)</label>
+                            <div class="input-group">
+                                <input type="text" id="fichierUrl" class="form-control" placeholder="URL ou Upload">
+                                <button type="button" class="btn btn-outline-primary" onclick="ouvrirUploadFichier()">
+                                    <i class="bi bi-upload"></i>
+                                </button>
+                            </div>
+                            <input type="file" id="fileFichier" style="display:none" accept=".pdf,.epub,.txt" onchange="uploadFichier('fichierUrl', this)">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
+                <button class="btn btn-primary" onclick="enregistrerLivre()">
+                    <i class="bi bi-save"></i> Enregistrer
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/admin.js"></script>
+</body>
+</html>
