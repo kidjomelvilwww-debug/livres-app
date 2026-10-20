@@ -1,5 +1,9 @@
 {
-    "rewrites": [
-        { "source": "/(.*)", "destination": "/index.html"} 
-    ]
+  "cleanUrls": true,
+  "rewrites": [
+    { "source": "/app.js", "destination": "/app.js" },
+    { "source": "/admin.js", "destination": "/admin.js" },
+    { "source": "/style.css", "destination": "/style.css" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
