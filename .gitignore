@@ -1,0 +1,10 @@
+# Fichiers compilés et archives lourdes
+*.class
+*.war
+*.jar
+*.lst
+
+# Dossiers de builds et caches locaux
+target/
+.gradle/
+build/
