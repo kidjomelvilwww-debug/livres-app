@@ -1,9 +1,6 @@
 {
   "cleanUrls": true,
   "rewrites": [
-    { "source": "/app.js", "destination": "/app.js" },
-    { "source": "/admin.js", "destination": "/admin.js" },
-    { "source": "/style.css", "destination": "/style.css" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/api/:path*", "destination": "https://VOTRE-SERVICE.onrender.com/api/:path*" }
   ]
 }

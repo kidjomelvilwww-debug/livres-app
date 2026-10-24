@@ -19,7 +19,7 @@ public class LivreDAO {
             "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
         try (Connection c = Database.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps = c.prepareStatement(sql, new String[] {"id"})) {
 
             ps.setString(1, l.getTitre());
             ps.setString(2, l.getAuteur());

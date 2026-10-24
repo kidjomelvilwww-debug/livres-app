@@ -36,7 +36,7 @@ public class UtilisateurDAO {
     public void save(Utilisateur u) {
         String sql = "INSERT INTO utilisateurs (login, mot_de_passe_hash, salt, nom) VALUES (?, ?, ?, ?)";
         try (Connection c = Database.getConnection();
-             PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+             PreparedStatement ps = c.prepareStatement(sql, new String[] {"id"})) {
             ps.setString(1, u.getLogin());
             ps.setString(2, u.getMotDePasseHash());
             ps.setString(3, u.getSalt());

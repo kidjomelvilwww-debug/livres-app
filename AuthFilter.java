@@ -9,9 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Protège les routes admin : /api/livres-admin/* et /admin.html
+ * Protège les routes admin : /api/livres-admin/*, /api/upload et /admin.html
  */
-@WebFilter(urlPatterns = {"/api/livres-admin/*", "/admin.html"})
+@WebFilter(urlPatterns = {"/api/livres-admin/*", "/api/upload", "/admin.html"})
 public class AuthFilter implements Filter {
 
     @Override

@@ -8,3 +8,6 @@
 target/
 .gradle/
 build/
+
+# Dossier généré par build-war.sh
+_build/
